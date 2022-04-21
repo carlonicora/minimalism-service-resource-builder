@@ -28,7 +28,6 @@ class ResourceBuilder extends AbstractService
      * @param string $builderClass
      * @param ResourceableDataInterface[] $data
      * @param CacheBuilderInterface|null $cacheBuilder
-     * @param array $additionalData
      * @return ResourceObject[]
      * @throws Exception
      */
@@ -36,7 +35,6 @@ class ResourceBuilder extends AbstractService
         string $builderClass,
         array $data,
         ?CacheBuilderInterface $cacheBuilder=null,
-        array $additionalData = []
     ): array
     {
         $response = null;
@@ -48,7 +46,7 @@ class ResourceBuilder extends AbstractService
             /** @var ResourceBuilderInterface $resourceBuilder */
             $resourceBuilder = $this->objectFactory->create($builderClass);
 
-            $response = $resourceBuilder->buildResources(data: $data, additionalData: $additionalData);
+            $response = $resourceBuilder->buildResources(data: $data);
 
             if ($this->cache !== null && $cacheBuilder !== null) {
                 $this->cache->save($cacheBuilder, serialize($response), CacheType::Json);
@@ -62,7 +60,6 @@ class ResourceBuilder extends AbstractService
      * @param string $builderClass
      * @param ResourceableDataInterface $data
      * @param CacheBuilderInterface|null $cacheBuilder
-     * @param array $additionalData
      * @return ResourceObject
      * @throws Exception
      */
@@ -70,7 +67,6 @@ class ResourceBuilder extends AbstractService
         string $builderClass,
         ResourceableDataInterface $data,
         ?CacheBuilderInterface $cacheBuilder=null,
-        array $additionalData = []
     ): ResourceObject
     {
         $response = null;
@@ -82,7 +78,7 @@ class ResourceBuilder extends AbstractService
         if ($response === null) {
             /** @var ResourceBuilderInterface $resourceBuilder */
             $resourceBuilder = $this->objectFactory->create($builderClass);
-            $response = $resourceBuilder->buildResource(data: $data, additionalData: $additionalData);
+            $response = $resourceBuilder->buildResource(data: $data);
 
             if ($this->cache !== null && $cacheBuilder !== null) {
                 $this->cache->save($cacheBuilder, serialize($response), CacheType::Json);

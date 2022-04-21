@@ -9,18 +9,16 @@ abstract class AbstractResourceBuilder implements ResourceBuilderInterface
 {
     /**
      * @param ResourceableDataInterface[] $data
-     * @param array $additionalData
      * @return ResourceObject[]
      */
     public function buildResources(
         array $data,
-        array $additionalData = []
     ): array
     {
         $response = [];
 
         foreach ($data as $resourceableData) {
-            $response[] = $this->buildResource($resourceableData, $additionalData);
+            $response[] = $this->buildResource($resourceableData);
         }
 
         return $response;
@@ -28,12 +26,10 @@ abstract class AbstractResourceBuilder implements ResourceBuilderInterface
 
     /**
      * @param ResourceableDataInterface $data
-     * @param array $additionalData
      * @return ResourceObject
      */
     abstract public function buildResource(
         ResourceableDataInterface $data,
-        array $additionalData = []
     ): ResourceObject;
 
     /**

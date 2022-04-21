@@ -12,17 +12,14 @@ interface ResourceBuilderInterface extends SimpleObjectInterface
      */
     public function buildResources(
         array $data,
-        array $additionalData = []
     ): array;
 
     /**
      * @param ResourceableDataInterface $data
-     * @param array $additionalData
      * @return ResourceObject
      */
     public function buildResource(
         ResourceableDataInterface $data,
-        array $additionalData = []
     ): ResourceObject;
 
     /**
