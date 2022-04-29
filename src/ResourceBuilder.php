@@ -1,6 +1,7 @@
 <?php
 namespace CarloNicora\Minimalism\Services\ResourceBuilder;
 
+use CarloNicora\JsonApi\Document;
 use CarloNicora\JsonApi\Objects\ResourceObject;
 use CarloNicora\Minimalism\Abstracts\AbstractService;
 use CarloNicora\Minimalism\Interfaces\Cache\Enums\CacheType;
@@ -8,6 +9,7 @@ use CarloNicora\Minimalism\Interfaces\Cache\Interfaces\CacheBuilderInterface;
 use CarloNicora\Minimalism\Interfaces\Cache\Interfaces\CacheInterface;
 use CarloNicora\Minimalism\Services\ResourceBuilder\Interfaces\ResourceableDataInterface;
 use CarloNicora\Minimalism\Services\ResourceBuilder\Interfaces\ResourceBuilderInterface;
+use CarloNicora\Minimalism\Services\ResourceBuilder\Interfaces\ResourceListBuilderInterface;
 use Exception;
 
 class ResourceBuilder extends AbstractService
@@ -86,6 +88,23 @@ class ResourceBuilder extends AbstractService
         }
 
         return $response;
+    }
+
+    /**
+     * @param string $listBuilderClass
+     * @param ResourceableDataInterface[] $data
+     * @return Document
+     * @throws Exception
+     */
+    public function buildResourceList(
+        string $listBuilderClass,
+        array $data
+    ): Document
+    {
+        /** @var ResourceListBuilderInterface $listBuilder */
+        $listBuilder = $this->objectFactory->create($listBuilderClass);
+
+        return $listBuilder->buildResourceList($data);
     }
 
     /**
