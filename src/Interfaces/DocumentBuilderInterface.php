@@ -5,15 +5,15 @@ namespace CarloNicora\Minimalism\Services\ResourceBuilder\Interfaces;
 use CarloNicora\JsonApi\Document;
 use CarloNicora\Minimalism\Interfaces\SimpleObjectInterface;
 
-interface ResourceListBuilderInterface extends SimpleObjectInterface
+interface DocumentBuilderInterface extends SimpleObjectInterface
 {
 
     /**
-     * @param ResourceableDataInterface[] $data
+     * @param DocumentableDataInterface $data
      * @return Document
      */
-    public function buildResourceList(
-        array $data,
+    public function buildDocument(
+        DocumentableDataInterface $data,
     ): Document;
 
 }

@@ -7,9 +7,10 @@ use CarloNicora\Minimalism\Abstracts\AbstractService;
 use CarloNicora\Minimalism\Interfaces\Cache\Enums\CacheType;
 use CarloNicora\Minimalism\Interfaces\Cache\Interfaces\CacheBuilderInterface;
 use CarloNicora\Minimalism\Interfaces\Cache\Interfaces\CacheInterface;
+use CarloNicora\Minimalism\Services\ResourceBuilder\Interfaces\DocumentableDataInterface;
+use CarloNicora\Minimalism\Services\ResourceBuilder\Interfaces\DocumentBuilderInterface;
 use CarloNicora\Minimalism\Services\ResourceBuilder\Interfaces\ResourceableDataInterface;
 use CarloNicora\Minimalism\Services\ResourceBuilder\Interfaces\ResourceBuilderInterface;
-use CarloNicora\Minimalism\Services\ResourceBuilder\Interfaces\ResourceListBuilderInterface;
 use Exception;
 
 class ResourceBuilder extends AbstractService
@@ -91,20 +92,20 @@ class ResourceBuilder extends AbstractService
     }
 
     /**
-     * @param string $listBuilderClass
-     * @param ResourceableDataInterface[] $data
+     * @param string $documentBuilderClass
+     * @param DocumentableDataInterface $data
      * @return Document
      * @throws Exception
      */
-    public function buildResourceList(
-        string $listBuilderClass,
-        array $data
+    public function buildDocument(
+        string                    $documentBuilderClass,
+        DocumentableDataInterface $data
     ): Document
     {
-        /** @var ResourceListBuilderInterface $listBuilder */
-        $listBuilder = $this->objectFactory->create($listBuilderClass);
+        /** @var DocumentBuilderInterface $documentBuilder */
+        $documentBuilder = $this->objectFactory->create($documentBuilderClass);
 
-        return $listBuilder->buildResourceList($data);
+        return $documentBuilder->buildDocument($data);
     }
 
     /**
