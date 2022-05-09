@@ -111,34 +111,44 @@ class ResourceBuilder extends AbstractService
     /**
      * @param string $dataClass
      * @param ResourceObject[] $resources
+     * @param array|null $dataObjects
      * @return ResourceableDataInterface[]
      * @throws Exception
      */
     public function ingestResources(
         string $dataClass,
         array $resources,
+        ?array $dataObjects=null,
     ): array
     {
         /** @var ResourceBuilderInterface $resourceBuilder */
         $resourceBuilder = $this->objectFactory->create($dataClass);
 
-        return $resourceBuilder->ingestResources(resources: $resources);
+        return $resourceBuilder->ingestResources(
+            resources: $resources,
+            dataObjects: $dataObjects,
+        );
     }
 
     /**
      * @param string $dataClass
      * @param ResourceObject $resource
+     * @param ResourceableDataInterface|null $dataObject
      * @return ResourceableDataInterface
      * @throws Exception
      */
     public function ingestResource(
         string $dataClass,
         ResourceObject $resource,
+        ?ResourceableDataInterface $dataObject=null,
     ): ResourceableDataInterface
     {
         /** @var ResourceBuilderInterface $resourceBuilder */
         $resourceBuilder = $this->objectFactory->create($dataClass);
 
-        return $resourceBuilder->ingestResource(resource: $resource);
+        return $resourceBuilder->ingestResource(
+            resource: $resource,
+            dataObject: $dataObject,
+        );
     }
 }

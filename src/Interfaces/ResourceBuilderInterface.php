@@ -23,18 +23,22 @@ interface ResourceBuilderInterface extends SimpleObjectInterface
     ): ResourceObject;
 
     /**
-     * @param ResourceObject[] $resources
-     * @return ResourceableDataInterface[]|null
+     * @param array $resources
+     * @param ResourceableDataInterface[]|null $dataObjects
+     * @return array|null
      */
     public function ingestResources(
         array $resources,
+        ?array $dataObjects,
     ): ?array;
 
     /**
      * @param ResourceObject $resource
+     * @param ResourceableDataInterface|null $dataObject
      * @return ResourceableDataInterface|null
      */
     public function ingestResource(
         ResourceObject $resource,
+        ?ResourceableDataInterface $dataObject,
     ): ?ResourceableDataInterface;
 }
