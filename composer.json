@@ -1,7 +1,7 @@
 {
   "name": "carlonicora/minimalism-service-resource-builder",
   "description": "{json:api} resource builder for minimalism",
-  "version": "1.0.0-beta8",
+  "version": "1.0.0-beta9",
   "homepage": "https://carlonicora.com",
   "time": "2022-02-07",
   "license": "MIT",

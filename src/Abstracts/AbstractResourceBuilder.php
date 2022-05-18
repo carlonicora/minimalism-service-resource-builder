@@ -12,7 +12,7 @@ abstract class AbstractResourceBuilder implements ResourceBuilderInterface
      * @param EncrypterInterface $encrypter
      */
     public function __construct(
-        protected EncrypterInterface $encrypter,
+        protected readonly EncrypterInterface $encrypter,
     )
     {
     }
