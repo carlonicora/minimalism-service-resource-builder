@@ -29,8 +29,9 @@ class ResourceBuilder extends AbstractService
 
     /**
      * @param string $builderClass
-     * @param ResourceableDataInterface[] $data
+     * @param ResourceableDataInterface[]|int[] $data
      * @param CacheBuilderInterface|null $cacheBuilder
+     * @param bool $buildMinimal
      * @return ResourceObject[]
      * @throws Exception
      */
@@ -38,6 +39,7 @@ class ResourceBuilder extends AbstractService
         string $builderClass,
         array $data,
         ?CacheBuilderInterface $cacheBuilder=null,
+        bool $buildMinimal=false,
     ): array
     {
         $response = null;
@@ -49,7 +51,11 @@ class ResourceBuilder extends AbstractService
             /** @var ResourceBuilderInterface $resourceBuilder */
             $resourceBuilder = $this->objectFactory->create($builderClass);
 
-            $response = $resourceBuilder->buildResources(data: $data);
+            if ($buildMinimal){
+                $response = $resourceBuilder->buildMinimalResources(ids: $data);
+            } else {
+                $response = $resourceBuilder->buildResources(data: $data);
+            }
 
             if ($this->cache !== null && $cacheBuilder !== null) {
                 $this->cache->save($cacheBuilder, serialize($response), CacheType::Json);
@@ -61,15 +67,17 @@ class ResourceBuilder extends AbstractService
 
     /**
      * @param string $builderClass
-     * @param ResourceableDataInterface $data
+     * @param ResourceableDataInterface|int $data
      * @param CacheBuilderInterface|null $cacheBuilder
+     * @param bool $buildMinimal
      * @return ResourceObject
      * @throws Exception
      */
     public function buildResource(
         string $builderClass,
-        ResourceableDataInterface $data,
+        ResourceableDataInterface|int $data,
         ?CacheBuilderInterface $cacheBuilder=null,
+        bool $buildMinimal=false,
     ): ResourceObject
     {
         $response = null;
@@ -81,7 +89,12 @@ class ResourceBuilder extends AbstractService
         if ($response === null) {
             /** @var ResourceBuilderInterface $resourceBuilder */
             $resourceBuilder = $this->objectFactory->create($builderClass);
-            $response = $resourceBuilder->buildResource(data: $data);
+
+            if ($buildMinimal){
+                $response = $resourceBuilder->buildMinimalResource(id: $data);
+            } else {
+                $response = $resourceBuilder->buildResource(data: $data);
+            }
 
             if ($this->cache !== null && $cacheBuilder !== null) {
                 $this->cache->save($cacheBuilder, serialize($response), CacheType::Json);

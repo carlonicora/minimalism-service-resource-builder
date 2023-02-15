@@ -7,6 +7,22 @@ use CarloNicora\Minimalism\Interfaces\SimpleObjectInterface;
 interface ResourceBuilderInterface extends SimpleObjectInterface
 {
     /**
+     * @param int[] $ids
+     * @return ResourceObject[]
+     */
+    public function buildMinimalResources(
+        array $ids
+    ): array;
+
+    /**
+     * @param int $id
+     * @return ResourceObject
+     */
+    public function buildMinimalResource(
+        int $id
+    ): ResourceObject;
+
+    /**
      * @param ResourceableDataInterface[] $data
      * @return ResourceObject[]
      */

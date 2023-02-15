@@ -5,6 +5,7 @@ use CarloNicora\JsonApi\Objects\ResourceObject;
 use CarloNicora\Minimalism\Interfaces\Encrypter\Interfaces\EncrypterInterface;
 use CarloNicora\Minimalism\Services\ResourceBuilder\Interfaces\ResourceableDataInterface;
 use CarloNicora\Minimalism\Services\ResourceBuilder\Interfaces\ResourceBuilderInterface;
+use Exception;
 
 abstract class AbstractResourceBuilder implements ResourceBuilderInterface
 {
@@ -15,6 +16,23 @@ abstract class AbstractResourceBuilder implements ResourceBuilderInterface
         protected readonly EncrypterInterface $encrypter,
     )
     {
+    }
+
+    /**
+     * @param int[] $ids
+     * @return ResourceObject[]
+     * @throws Exception
+     */
+    public function buildMinimalResources(
+        array $ids
+    ): array {
+        $response = [];
+
+        foreach ($ids as $id){
+            $response[] = $this->buildMinimalResource($id);
+        }
+
+        return $response;
     }
 
     /**
